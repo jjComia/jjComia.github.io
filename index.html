@@ -16,7 +16,7 @@
 
 </head>
 <body>
-    <div class="card col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 mt-5">
+    <div class="card vw-100 vh-100 d-flex justify-content-center align-items-center">
         <div class="card-body">
             <p class="text-center">The weather right now is...</p>
             <h6 class="text-center mb-1">Weekday, Month/Day</h6>
@@ -142,7 +142,6 @@
                                 document.getElementById("weatherPrecipitation").innerHTML = `Precipitation: ${precipitation}% <i class="bi bi-umbrella-fill" style="color:cornflowerblue"></i>`;
                                 document.getElementById("weatherLow").innerHTML = `Low: ${minTemp}°F High: ${maxTemp}°F`;
 
-                                // Change background based on day/night
                                 if (isDay === "Day") {
                                     cardBody.classList.remove("night-card");
                                     cardBody.classList.add("day-card");

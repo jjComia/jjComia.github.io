@@ -1,14 +1,12 @@
 .column {
     float: left;
     width: 33.33%;
-  }
-  
+}
 .row:after {
     content: "";
     display: table;
     clear: both;
-  }
-
+}
 footer {
     color: black;
 }
@@ -16,13 +14,17 @@ footer {
     background: linear-gradient(to bottom, #007AFF, #E3F2FD); /* Light blue gradient for day */
     color: black;
 }
-
 .night-card {
     background: linear-gradient(to bottom, #0A0A33, #3B3B98); /* Dark blue gradient for night */
     color: white;
 }
-
-/* Smooth transition effect */
 .card-body {
     transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+.card-fullCard{
+    width: 100vw; 
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

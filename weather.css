@@ -12,11 +12,11 @@ footer {
     color: black;
 }
 .day-card {
-    background: linear-gradient(to bottom, #007AFF, #E3F2FD); /* Light blue gradient for day */
+    background: linear-gradient(to bottom, #007AFF, #E3F2FD);
     color: black;
 }
 .night-card {
-    background: linear-gradient(to bottom, #0A0A33, #3B3B98); /* Dark blue gradient for night */
+    background: linear-gradient(to bottom, #0A0A33, #3B3B98);
     color: white;
 }
 .card-body {
@@ -26,7 +26,6 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Prevents scrolling */
 }
 
 .fullCard {
@@ -37,7 +36,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: none; /* Removes card border */
-    box-shadow: none; /* Removes card shadow */
+    border: none;
+    box-shadow: none; 
 }
 

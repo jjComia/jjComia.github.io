@@ -21,10 +21,22 @@ footer {
 .card-body {
     transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
 }
-.fullCard{
-    width: 100vw; 
-    height: 100vh; 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevents scrolling */
+}
+
+.fullCard {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none; /* Removes card border */
+    box-shadow: none; /* Removes card shadow */
 }
+

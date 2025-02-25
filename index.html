@@ -18,38 +18,38 @@
 <body>
     <div class="card fullCard">
         <div class="card-body">
-            <p class="text-center">The weather right now is...</p>
-            <h6 class="text-center mb-1">Weekday, Month/Day</h6>
-            <h3 class="text-center mb-1" id="weatherLocation">
+            <p class="text-center mt-1 mb-3">The weather right now is...</p>
+            <h6 class="text-center mb-3">Weekday, Month/Day</h6>
+            <h3 class="text-center mb-3" id="weatherLocation">
                 Loading location...
                 <i id="locationIcon" class="bi bi-geo-alt-fill" style="color:darkred"></i>
             </h3>
-            <h1 class="text-center mb-1" id="weatherTemperature">
+            <h1 class="text-center mb-3" id="weatherTemperature">
                 <b>-- °F</b>
                 <i id="temperatureIcon" class="bi bi-thermometer-half" style="color:darkred"></i>
             </h1>
-            <h3 class="text-center mb-1" id="weatherCondition">
+            <h3 class="text-center mb-3" id="weatherCondition">
                 Condition: --
                 <i id="weatherIcon"></i>
             </h3>
-            <h6 class="text-center mb-3" id="weatherLow">
+            <h6 class="text-center mb-5" id="weatherLow">
                 Low: -- High: --
             </h6>
             <div class="row">
                 <div class="col">
-                    <h5 class="text-center mb-1" id="weatherHumidity">
+                    <h5 class="text-center mb-3" id="weatherHumidity">
                         Humidity: --%
                         <i id="humidityIcon" class="bi bi-droplet-fill" style="color:cornflowerblue"></i>
                     </h5>
                 </div>
                 <div class="col">
-                    <h5 class="text-center mb-1" id="weatherUV">
+                    <h5 class="text-center mb-3" id="weatherUV">
                         UV Index: --
                         <i id="uvIcon" class="bi bi-sun-fill" style="color:darkorange"></i>
                     </h5>
                 </div>
                 <div class="col">
-                    <h5 class="text-center mb-1" id="weatherPrecipitation">
+                    <h5 class="text-center mb-3" id="weatherPrecipitation">
                         Precipitation: --%
                         <i id="precipitationIcon" class="bi bi-umbrella-fill" style="color:cornflowerblue"></i>
                     </h5>
@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    <footer class="text-center mt-3">
+    <footer class="text-center">
         <small>Data courtesy of <a href="https://open-meteo.com/en/docs" target="_blank">Open-Meteo</a></small>
     </footer>
     <script>
@@ -107,7 +107,7 @@
                                 const options = { weekday: 'long', month: 'numeric', day: 'numeric' };
                                 const formattedDate = today.toLocaleDateString('en-US', options);
 
-                                document.querySelector("h6.text-center.mb-1").textContent = formattedDate;
+                                document.querySelector("h6.text-center.mb-3").textContent = formattedDate;
 
                                 const currentTemp = Math.round((data.current.temperature_2m * 9/5) + 32);
                                 const weatherCode = data.current.weathercode;

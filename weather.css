@@ -8,6 +8,7 @@
     clear: both;
 }
 footer {
+    background-color: lightgrey;
     color: black;
 }
 .day-card {
@@ -30,7 +31,7 @@ html, body {
 
 .fullCard {
     width: 100vw;
-    height: 100vh;
+    height: 96.5vh;
     margin: 0;
     padding: 0;
     display: flex;

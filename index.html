@@ -19,54 +19,69 @@
     <div class="card fullCard">
         <div class="card-body">
             <p class="text-center mt-1 mb-3">The weather right now is...</p>
-            <h6 class="text-center mb-3">Weekday, Month/Day</h6>
-            <h3 class="text-center mb-3" id="weatherLocation">
+            <!-- aria-live label allows for the data to be read in after it loads. better for screen readers -->
+             <!-- Gives them the weekday, month, and the day of the month -->
+            <h6 class="text-center mb-3" aria-live="polite">Weekday, Month/Day</h6>
+            <h3 class="text-center mb-3" id="weatherLocation" aria-live="polite">
                 Loading location...
-                <i id="locationIcon" class="bi bi-geo-alt-fill" style="color:darkred"></i>
+            <!-- aria-hidden ensures that the icons do not conflict with screen readers, used BI icons, worked out pretty well -->
+            <!-- "Your Location" -->
+                <i id="locationIcon" class="bi bi-geo-alt-fill" style="color:darkred" aria-hidden="true"></i>
             </h3>
-            <h1 class="text-center mb-3" id="weatherTemperature">
+            <!-- The Temperature -->
+            <h1 class="text-center mb-3" id="weatherTemperature"  aria-live="polite">
                 <b>-- °F</b>
-                <i id="temperatureIcon" class="bi bi-thermometer-half" style="color:darkred"></i>
+                <i id="temperatureIcon" class="bi bi-thermometer-half" style="color:darkred" aria-hidden="true"></i>
             </h1>
-            <h3 class="text-center mb-3" id="weatherCondition">
+            <!-- Weather Condition based on weather code -->
+            <h3 class="text-center mb-3" id="weatherCondition"  aria-live="polite">
                 Condition: --
-                <i id="weatherIcon"></i>
+                <i id="weatherIcon" aria-hidden="true"></i>
             </h3>
-            <h6 class="text-center mb-5" id="weatherLow">
+            <!-- temp hi and low for the day -->
+            <h6 class="text-center mb-5" id="weatherLow"  aria-live="polite">
                 Low: -- High: --
             </h6>
+            <!-- Used the metrics that i look at the most and made them into rows and colums -->
             <div class="row">
                 <div class="col">
-                    <h5 class="text-center mb-3" id="weatherHumidity">
+                    <!--Humidity-->
+                    <h5 class="text-center mb-3" id="weatherHumidity"  aria-live="polite">
                         Humidity: --%
-                        <i id="humidityIcon" class="bi bi-droplet-fill" style="color:cornflowerblue"></i>
+                        <i id="humidityIcon" class="bi bi-droplet-fill" style="color:cornflowerblue" aria-hidden="true"></i>
                     </h5>
                 </div>
                 <div class="col">
-                    <h5 class="text-center mb-3" id="weatherUV">
+                     <!--UV-->
+                    <h5 class="text-center mb-3" id="weatherUV"  aria-live="polite">
                         UV Index: --
-                        <i id="uvIcon" class="bi bi-sun-fill" style="color:darkorange"></i>
+                        <i id="uvIcon" class="bi bi-sun-fill" style="color:darkorange" aria-hidden="true"></i>
                     </h5>
                 </div>
                 <div class="col">
-                    <h5 class="text-center mb-3" id="weatherPrecipitation">
+                    <!--Precipitation %-->
+                    <h5 class="text-center mb-3" id="weatherPrecipitation"  aria-live="polite">
                         Precipitation: --%
-                        <i id="precipitationIcon" class="bi bi-umbrella-fill" style="color:cornflowerblue"></i>
+                        <i id="precipitationIcon" class="bi bi-umbrella-fill" style="color:cornflowerblue" aria-hidden="true"></i>
                     </h5>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Footer for credit-->
     <footer class="text-center">
         <small>Data courtesy of <a href="https://open-meteo.com/en/docs" target="_blank">Open-Meteo</a></small>
     </footer>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            //used chat what I could use for coordinates and it referred me to navigator.geolocation. Used google and found a forum post about how to use it
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         const latitude = position.coords.latitude;
                         const longitude = position.coords.longitude;
+                        // needed help validating that the coordinates went through also wanted to see if these coordinates were the same that were in the JSON url for the api call.
+                        // did that because i was not sure what to do with navigator.geolocation since i havent done it before
                         console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
 
                         const apiURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,weathercode,uv_index,precipitation_probability,is_day&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
@@ -74,6 +89,7 @@
                         fetch(apiURL)
                             .then((response) => response.json())
                             .then((data) => {
+                                // im not going to lie i used chat to write out the code and the description based on meteos but the icon selection and the color selection was all me. It was just easier for it to write the corresponding weather code than for me to type it all out
                                 const cardBody = document.querySelector(".card-body");
                                 const weatherDescriptions = {
                                     0: { description: "Clear sky", icon: "bi bi-brightness-high-fill", color: "#FF8C00"},
@@ -103,12 +119,14 @@
                                     96: { description: "Thunderstorm with light hail", icon: "bi bi-cloud-lightning-rain-fill", color: "#FFFF33" },
                                     99: { description: "Thunderstorm with heavy hail", icon: "bi bi-cloud-lightning-rain-fill", color: "#FFFF33" }
                                 };
+                                // time and date setup so it changes
                                 const today = new Date();
                                 const options = { weekday: 'long', month: 'numeric', day: 'numeric' };
                                 const formattedDate = today.toLocaleDateString('en-US', options);
-
+                                // this is where it goes
                                 document.querySelector("h6.text-center.mb-3").textContent = formattedDate;
-
+                                
+                                // variables for the numbers pulled, rounded up temp because no one cares about decimals. also turned it F because it defaults to C in meteos
                                 const currentTemp = Math.round((data.current.temperature_2m * 9/5) + 32);
                                 const weatherCode = data.current.weathercode;
                                 const weatherInfo = weatherDescriptions[weatherCode];
@@ -119,6 +137,7 @@
                                 const precipitation = data.current.precipitation_probability;
                                 const isDay = data.current.is_day === 1 ? "Day" : "Night";
 
+                                //verification because i had to troubleshoot numbers
                                 console.log(`Temperature: ${currentTemp}°F`);
                                 console.log(`Weather Code: ${weatherCode}`);
                                 console.log(`Humidity: ${humidity}%`);
@@ -128,9 +147,11 @@
                                 console.log(`Max Temperature: ${maxTemp}°F`);
                                 console.log(`It is currently: ${isDay}`);
 
+                                //for the app in Iphone
                                 const weatherIcon = document.querySelector("#weather-icon");
                                 const weatherText = document.querySelector("#weather-text");        
 
+                                // data gets replaced and the text is updated
                                 document.getElementById("weatherLocation").innerHTML = `Your Location  <i class="bi bi-geo-alt-fill" style="color:darkred"></i>`;
                                 document.getElementById("weatherTemperature").innerHTML = `<b>${currentTemp} °F</b> <i class="bi bi-thermometer-half" style="color:darkred"></i>`;
                                 if (weatherDescriptions[weatherCode]) {
@@ -142,6 +163,7 @@
                                 document.getElementById("weatherPrecipitation").innerHTML = `Precipitation: ${precipitation}% <i class="bi bi-umbrella-fill" style="color:cornflowerblue"></i>`;
                                 document.getElementById("weatherLow").innerHTML = `Low: ${minTemp}°F High: ${maxTemp}°F`;
 
+                                // background color changes based on if it is nightime or day time. this is similar to how iphone weather does it.
                                 if (isDay === "Day") {
                                     cardBody.classList.remove("night-card");
                                     cardBody.classList.add("day-card");
